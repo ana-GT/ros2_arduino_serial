@@ -27,7 +27,7 @@ class CarCommSerial(Node):
         # Serial
         self.serial_ = serial.Serial(serial_port, baud_rate, timeout=1)
         self.serial_.reset_input_buffer()
-        
+        self.rate_ = self.create_rate(5) # Hz
 
     def twist_callback(self, msg):
         self.twist_ = msg
@@ -37,6 +37,12 @@ class CarCommSerial(Node):
        
         # Send twist
         self.get_logger().info("Received twist: Lin: {} ang: {}".format(self.twist_.linear.x, self.twist_.angular.z))
+        
+        command = "<" + "vel_lin" + "," + str(self.twist_.linear.x) + ", " + "vel_ang" + "," + str(self.twist_.angular.z) +  ">\n"
+        self.get_logger().info("** Command sent: {}".format(command))
+        
+        self.serial_.write(command.encode('utf-8'))
+        self.rate_.sleep()
         
         # Check if data back is being received from car
         line = self.serial_.readline().decode('utf-8').rstrip()
