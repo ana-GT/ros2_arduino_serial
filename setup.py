@@ -25,6 +25,7 @@ setup(
     entry_points={
         'console_scripts': [
           'car_comm = ros2_arduino_serial.car_comm:main',
+          'camera_feed = ros2_arduino_serial.camera_feed:main'
         ],
     },
 )
