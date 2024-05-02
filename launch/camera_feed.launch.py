@@ -8,11 +8,11 @@ from ament_index_python.packages import get_package_share_directory
 from launch_ros.substitutions import FindPackageShare
 
 ARGUMENTS = [
-    DeclareLaunchArgument('image_folder', default_value='/home/ana/ros2/arduino_ws',
+    DeclareLaunchArgument('image_folder', default_value='/home/ana/ros2/brash_ws/brash/cfdp/rosfsw',
                           description='Image folder'),
-    DeclareLaunchArgument('image_name', default_value='image_test.png',
+    DeclareLaunchArgument('image_name', default_value='rover_image.png',
                           description='Image name'),
-    DeclareLaunchArgument('timer_dt', default_value='1.0',
+    DeclareLaunchArgument('timer_dt', default_value='5.0',
                           description='Time frequency in seconds'),
 ]
 

@@ -38,7 +38,7 @@ class CameraFeed(Node):
         self.initialized_ = True
         #self.frame_ = cv.Image()
         
-        self.cap_ = cv.VideoCapture(0)
+        self.cap_ = cv.VideoCapture(-1)
         if not self.cap_.isOpened():
           self.get_logger().warn("Cannot open camera")
           self.initialized_ = False
@@ -48,9 +48,10 @@ class CameraFeed(Node):
 
     def write_callback(self):
         mutex.acquire()
-        gray = cv.cvtColor(self.frame_, cv.COLOR_BGR2GRAY)
+        #gray = cv.cvtColor(self.frame_, cv.COLOR_BGR2GRAY)
+        img_scaled = cv.resize(self.frame_, (96, 72))
         mutex.release()
-        if not cv.imwrite(self.image_filename_, gray):
+        if not cv.imwrite(self.image_filename_, img_scaled):
           self.get_logger().warn("Error saving image!")
 
     def capture_callback(self):
